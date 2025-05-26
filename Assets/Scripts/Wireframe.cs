@@ -12,17 +12,12 @@ using System.Threading.Tasks;
 public class Wireframe : MonoBehaviour
 {
     [Header("Generator settings")]
-    [Range(0f, 0.1f)]
     public float wireframeThickness = 0.025f;
-    [Range(0f, 10f)]
     public float horizontalResolution = 1f;
-    [Range(0f, 10f)]
     public float verticalResolution = 2f;
     public int cullMode = 0;
     bool depthWrite = false;
-    [Range(0, 10)]
     public int blurFrames = 1;
-    [Range(0f, 2f)]
     public float glowMultiplier = 1;
 
     [Header("Output settings")]
@@ -40,7 +35,7 @@ public class Wireframe : MonoBehaviour
 
     public void Awake()
     {
-        cylinder = Resources.Load("Cylinder", typeof(GameObject)) as GameObject;
+        cylinder = Resources.Load("Preview Cylinder", typeof(GameObject)) as GameObject;
 
         float begin = Time.realtimeSinceStartup;
         string json = JsonUtility.ToJson(GetJsonWireframeObject(), beautifyJson);

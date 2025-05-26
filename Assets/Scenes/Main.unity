@@ -364,14 +364,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89ec5850edcbaea40aa555d8e1cd18eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wireframeThickness: 0.0025
+  wireframeThickness: 0.01
   horizontalResolution: 1
   verticalResolution: 2
   cullMode: 0
   blurFrames: 1
   glowMultiplier: 1
   fileName: out.json
-  beautifyJson: 1
+  beautifyJson: 0
 --- !u!4 &1661538198
 Transform:
   m_ObjectHideFlags: 0
