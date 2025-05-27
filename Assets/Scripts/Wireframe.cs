@@ -39,6 +39,7 @@ public class Wireframe : MonoBehaviour
 
         float begin = Time.realtimeSinceStartup;
         string json = JsonUtility.ToJson(GetJsonWireframeObject(), beautifyJson);
+        Debug.Log(json);
         Debug.Log("Generation done! (" + (Time.realtimeSinceStartup - begin).ToString() + "s)");
 
         if (File.Exists(fileName))
@@ -64,6 +65,29 @@ public class Wireframe : MonoBehaviour
     {
         Root json = new()
         {
+            ModVersion = "0.3.12",
+            Version = 1,
+            LocalTransform = new()
+            {
+                Position = new()
+                {
+                    x = 0f,
+                    y = 0f,
+                    z = 0f
+                },
+                Rotation = new()
+                {
+                    x = 0f,
+                    y = 0f,
+                    z = 0f
+                },
+                Scale = new()
+                {
+                    x = 1f,
+                    y = 1f,
+                    z = 1f
+                }
+            },
             Modules = new()
         };
 
@@ -111,25 +135,213 @@ public class Wireframe : MonoBehaviour
                 GameObject newCylinder = Instantiate(cylinder, vertices[edges[i].a], Quaternion.identity);
                 newCylinder.transform.LookAt(vertices[edges[i].b]);
                 float distance = Vector3.Distance(vertices[edges[i].a], vertices[edges[i].b]);
-                newCylinder.transform.localScale = new Vector3(wireframeThickness, wireframeThickness, distance);
+                newCylinder.transform.localScale = new Vector3(wireframeThickness / 10f, wireframeThickness / 10f, distance);
 
-                newCylinder.transform.RotateAround(Vector3.zero, Vector3.up, 90f); // Fix to make object upright inside BS
+                //newCylinder.transform.RotateAround(Vector3.zero, Vector3.up, 90f); // Fix to make object upright inside BS
 
                 Module module = new()
                 {
+                    ModuleId = "reezonate.blur-saber",
+                    Version = 1,
                     Config = new()
                     {
                         SaberSettings = new()
                         {
+                            zOffsetFrom = 0f,
                             zOffsetTo = distance,
                             thickness = wireframeThickness,
+                            saberProfile = new()
+                            {
+                                interpolationType = 1,
+                                controlPoints = new()
+                                {
+                                    new ControlPoint()
+                                    {
+                                        time = 0f,
+                                        value = 1f
+                                    }
+                                }
+                            },
+                            startCap = true,
+                            endCap = true,
                             horizontalResolution = horizontalResolution,
                             verticalResolution = verticalResolution,
+                            renderQueue = 3002,
                             cullMode = cullMode,
                             depthWrite = depthWrite,
                             blurFrames = blurFrames,
-                            glowMultiplier = glowMultiplier
+                            glowMultiplier = glowMultiplier,
+                            handleRoughness = 2f,
+                            handleColor = new()
+                            {
+                                r = 0.1f,
+                                g = 0.1f,
+                                b = 0.1f,
+                                a = 0f
+                            },
+                            maskSettings = new()
+                            {
+                                bladeMaskResolution = 256,
+                                driversMaskResolution = 32,
+                                handleMask = new()
+                                {
+                                    interpolationType = 2,
+                                    controlPoints = new()
+                                    {
+                                        new ControlPoint()
+                                        {
+                                            time = 0f,
+                                            value = 0f
+                                        }
+                                    }
+                                },
+                                bladeMappings = new()
+                                {
+                                    colorOverValue = new()
+                                    {
+                                        interpolationType = 0,
+                                        controlPoints = new()
+                                        {
+                                            new ColorControlPoint()
+                                            {
+                                                time = 0.0f,
+                                                value = new()
+                                                {
+                                                    r = 1f,
+                                                    g = 1f,
+                                                    b = 1f,
+                                                    a = 1f
+                                                }
+                                            }
+                                        }
+                                    },
+                                    alphaOverValue = new()
+                                    {
+                                        interpolationType = 0,
+                                        controlPoints = new()
+                                        {
+                                            new ControlPoint()
+                                            {
+                                                time = 0f,
+                                                value = 1f
+                                            }
+                                        }
+                                    },
+                                    scaleOverValue = new()
+                                    {
+                                        interpolationType = 0,
+                                        controlPoints = new()
+                                        {
+                                            new ControlPoint()
+                                            {
+                                                time = 0f,
+                                                value = 1f
+                                            }
+                                        }
+                                    },
+                                    valueFrom = 0f,
+                                    valueTo = 1f,
+                                },
+                                driversSampleMode = 0,
+                                viewingAngleMappings = new()
+                                {
+                                    colorOverValue = new()
+                                    {
+                                        interpolationType = 0,
+                                        controlPoints = new()
+                                        {
+                                            new ColorControlPoint()
+                                            {
+                                                time = 0,
+                                                value = new()
+                                                {
+                                                    r = 1f,
+                                                    g = 1f,
+                                                    b = 1f,
+                                                    a = 1f
+                                                }
+                                            }
+                                        }
+                                    },
+                                    alphaOverValue = new()
+                                    {
+                                        interpolationType = 0,
+                                        controlPoints = new()
+                                        {
+                                            new ControlPoint()
+                                            {
+                                                time = 0f,
+                                                value = 1f
+                                            }
+                                        }
+                                    },
+                                    scaleOverValue = new()
+                                    {
+                                        interpolationType = 0,
+                                        controlPoints = new()
+                                        {
+                                            new ControlPoint()
+                                            {
+                                                time = 0f,
+                                                value = 1f
+                                            }
+                                        }
+                                    },
+                                    valueFrom = 0f,
+                                    valueTo = 1f,
+                                },
+                                surfaceAngleMappings = new()
+                                {
+                                    colorOverValue = new()
+                                    {
+                                        interpolationType = 0,
+                                        controlPoints = new()
+                                        {
+                                            new ColorControlPoint()
+                                            {
+                                                time = 0,
+                                                value = new()
+                                                {
+                                                    r = 1f,
+                                                    g = 1f,
+                                                    b = 1f,
+                                                    a = 1f
+                                                }
+                                            }
+                                        }
+                                    },
+                                    alphaOverValue = new()
+                                    {
+                                        interpolationType = 0,
+                                        controlPoints = new()
+                                        {
+                                            new ControlPoint()
+                                            {
+                                                time = 0f,
+                                                value = 1f
+                                            }
+                                        }
+                                    },
+                                    scaleOverValue = new()
+                                    {
+                                        interpolationType = 0,
+                                        controlPoints = new()
+                                        {
+                                            new ControlPoint()
+                                            {
+                                                time = 0f,
+                                                value = 1f
+                                            }
+                                        }
+                                    },
+                                    valueFrom = 0f,
+                                    valueTo = 1f,
+                                },
+                                drivers = {}
+                            }
                         },
+                        Enabled = true,
+                        Name = "Blur Saber",
                         LocalTransform = new()
                         {
                             Position = new()
@@ -143,14 +355,30 @@ public class Wireframe : MonoBehaviour
                                 x = newCylinder.transform.eulerAngles.x,
                                 y = newCylinder.transform.eulerAngles.y,
                                 z = newCylinder.transform.eulerAngles.z
+                            },
+                            Scale = new()
+                            {
+                                x = 1f,
+                                y = 1f,
+                                z = 1f
                             }
+                        },
+                        ForceColorOverride = false,
+                        ColorOverride = new()
+                        {
+                            type = 0,
+                            hue = 0f,
+                            saturation = 1f,
+                            value = 1f,
+                            hueShiftPerSecond = 0f,
+                            fakeGlowMultiplier = 1f
                         }
                     }
                 };
 
                 json.Modules.Add(module);
 
-                newCylinder.transform.RotateAround(Vector3.zero, Vector3.up, -90f); // Restore rotation for preview
+                //newCylinder.transform.RotateAround(Vector3.zero, Vector3.up, -90f); // Restore rotation for preview
             }
         }
 

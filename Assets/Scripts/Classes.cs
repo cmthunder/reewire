@@ -20,24 +20,24 @@ public class BladeMappings
     public ColorOverValue colorOverValue;
     public AlphaOverValue alphaOverValue;
     public ScaleOverValue scaleOverValue;
-    public int valueFrom;
-    public int valueTo;
+    public float valueFrom;
+    public float valueTo;
 }
 [Serializable]
 public class ColorOverride
 {
     public int type;
-    public int hue;
-    public int saturation;
-    public int value;
-    public int hueShiftPerSecond;
-    public int fakeGlowMultiplier;
+    public float hue;
+    public float saturation;
+    public float value;
+    public float hueShiftPerSecond;
+    public float fakeGlowMultiplier;
 }
 [Serializable]
 public class ColorOverValue
 {
     public int interpolationType;
-    public List<ControlPoint> controlPoints;
+    public List<ColorControlPoint> controlPoints;
 }
 [Serializable]
 public class Config
@@ -52,16 +52,22 @@ public class Config
 [Serializable]
 public class ControlPoint
 {
-    public int time;
-    public int value;
+    public float time;
+    public float value;
+}
+[Serializable]
+public class ColorControlPoint
+{
+    public float time;
+    public HandleColor value;
 }
 [Serializable]
 public class HandleColor
 {
-    public double r;
-    public double g;
-    public double b;
-    public int a;
+    public float r;
+    public float g;
+    public float b;
+    public float a;
 }
 [Serializable]
 public class HandleMask
@@ -162,8 +168,8 @@ public class SurfaceAngleMappings
     public ColorOverValue colorOverValue;
     public AlphaOverValue alphaOverValue;
     public ScaleOverValue scaleOverValue;
-    public int valueFrom;
-    public int valueTo;
+    public float valueFrom;
+    public float valueTo;
 }
 [Serializable]
 public class Value
@@ -179,6 +185,6 @@ public class ViewingAngleMappings
     public ColorOverValue colorOverValue;
     public AlphaOverValue alphaOverValue;
     public ScaleOverValue scaleOverValue;
-    public int valueFrom;
-    public int valueTo;
+    public float valueFrom;
+    public float valueTo;
 }
